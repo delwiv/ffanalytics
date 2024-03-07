@@ -1,0 +1,39 @@
+version: "2"
+
+networks:
+  api-network:
+    driver: bridge
+
+services:
+  api:
+    env_file: .env
+    build: .
+    ports:
+      - "3060:3060"
+    networks:
+      - api-network
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: 'bitnami/mongodb:latest'
+    env_file: .env
+    ports:
+      - "27017:27017"
+    volumes:
+      - "/var/data/mongodb:/bitnami/mongodb"
+    networks:
+      - api-network
+
+  redis:
+    image: 'bitnami/redis:latest'
+    env_file: .env
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+    networks:
+      - api-network
+    volumes:
+      - /var/data/redis
