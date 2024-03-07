@@ -1,4 +1,5 @@
 import express from 'express'
+import Event from '../../models/event.js'
 
 const events = express.Router()
 
@@ -25,11 +26,11 @@ events.use((req, res, next) => {
   next()
 })
 
-events.post('/', (req, res) => {
+events.post('/', async (req, res) => {
   const { clientId } = req
   const { name, payload } = req.body.event
   console.log(req.body)
-  const event = { name, date: new Date(), payload }
+  const event = await Event.create({ name, payload })
 
   return res.json({ event, clientId })
 })

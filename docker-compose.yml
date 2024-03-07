@@ -20,9 +20,14 @@ services:
     image: 'bitnami/mongodb:latest'
     env_file: .env
     ports:
-      - "27017:27017"
-    volumes:
-      - "/var/data/mongodb:/bitnami/mongodb"
+      - "27019:27017"
+    environment:
+      - MONGODB_USERNAME=$MONGODB_USER
+      - MONGODB_PASSWORD=$MONGODB_PASSWORD
+      - MONGODB_DATABASE=$MONGODB_DATABASE
+      - MONGODB_ROOT_PASSWORD=$MONGODB_PASSWORD
+    # volumes:
+    #   - "mongo_data:/bitnami/mongodb"
     networks:
       - api-network
 
@@ -37,3 +42,6 @@ services:
       - api-network
     volumes:
       - /var/data/redis
+
+volumes:
+  mongo_data:

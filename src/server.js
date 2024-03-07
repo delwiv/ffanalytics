@@ -21,6 +21,8 @@ app.use((req, res, next) => {
 app.use('/api', api)
 
 const startApp = async () => {
+  console.log('starting app...')
+  console.log('mongo connection...')
   await connect()
   app.listen(process.env.PORT || 3000, () => {
     console.log(`Server is running on port ${process.env.PORT || 3000}`)
