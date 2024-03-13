@@ -1,28 +1,21 @@
 {
   "name": "ffanalytics",
   "version": "1.0.0",
-  "description": "Simple analytics server for FFA",
+  "description": "Simple analytics server and client for Fifty-Fyfti Agency",
   "type": "module",
-  "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon ./src/server.js",
-    "start": "node ./src/server.js",
+    "api": "pnpm dotenvx run -- pnpm  --filter ffanalytics-api  dev",
+    "client": "pnpm --filter ffanalytics-client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Delwiv",
   "license": "ISC",
-  "dependencies": {
-    "express": "^5.0.0-beta.1",
-    "mongoose": "^8.2.1",
-    "morgan": "^1.10.0"
-  },
   "devDependencies": {
-    "dotenv": "^16.4.5",
+    "@dotenvx/dotenvx": "^0.25.0",
     "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.1.1",
-    "nodemon": "^3.1.0"
+    "eslint-plugin-promise": "^6.1.1"
   }
 }

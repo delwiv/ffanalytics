@@ -3,8 +3,8 @@ FROM $BASE AS builder
 WORKDIR /app
 COPY ./package.json pnpm-lock.yaml ./
 RUN corepack enable pnpm
-RUN pnpm install 
-COPY src ./src
+RUN pnpm --filter ffanalytics-api install 
+COPY packages ./
 
 # FROM builder AS tester
 # COPY tests ./tests
@@ -20,4 +20,4 @@ WORKDIR /app
 COPY --from=builder /app ./
 COPY .env ./.env
 EXPOSE $PORT
-CMD ["npm", "start"]
+CMD ["pnpm", "--filter", "ffa", "start"]

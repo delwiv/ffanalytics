@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-export const connect = async () => {
+export const connectMongo = async () => {
   const host = process.env.MONGODB_HOST
   const user = process.env.MONGODB_USER
   const password = process.env.MONGODB_PASSWORD
