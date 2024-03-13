@@ -6,6 +6,8 @@ export const connectMongo = async () => {
   const password = process.env.MONGODB_PASSWORD
   const database = process.env.MONGODB_DATABASE
 
+  console.log(`Connection to MongoDB on ${host}/${database}`)
+
   const connection = await mongoose.connect(
     `mongodb://${user}:${password}@${host}/${database}`
   )

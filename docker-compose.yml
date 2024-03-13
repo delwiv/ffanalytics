@@ -1,4 +1,4 @@
-version: "2"
+version: "3.8"
 
 networks:
   api-network:
@@ -6,7 +6,8 @@ networks:
 
 services:
   api:
-    env_file: .env
+    env_file: .env.docker
+    restart: always
     build: .
     ports:
       - "3060:3060"
@@ -18,7 +19,7 @@ services:
 
   mongo:
     image: 'bitnami/mongodb:latest'
-    env_file: .env
+    env_file: .env.docker
     ports:
       - "27019:27017"
     environment:
@@ -27,21 +28,21 @@ services:
       - MONGODB_DATABASE=$MONGODB_DATABASE
       - MONGODB_ROOT_PASSWORD=$MONGODB_PASSWORD
     # volumes:
-    #   - "mongo_data:/bitnami/mongodb"
+    #   - "~/.ffa-data:/bitnami/mongodb"
     networks:
       - api-network
 
   redis:
     image: 'bitnami/redis:latest'
-    env_file: .env
+    env_file: .env.docker
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     ports:
       - '6379:6379'
     networks:
       - api-network
-    volumes:
-      - /var/data/redis
-
-volumes:
-  mongo_data:
+#     volumes:
+#       - "~/.ffa-data:/bitnami/redis"
+#
+# volumes:
+#   mongo_data:

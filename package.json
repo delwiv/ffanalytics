@@ -4,7 +4,8 @@
   "description": "Simple analytics server and client for Fifty-Fyfti Agency",
   "type": "module",
   "scripts": {
-    "api": "pnpm dotenvx run -- pnpm  --filter ffanalytics-api  dev",
+    "api": "pnpm  --filter ffanalytics-api",
+    "dev": "pnpm dotenvx run -- pnpm api dev",
     "client": "pnpm --filter ffanalytics-client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
