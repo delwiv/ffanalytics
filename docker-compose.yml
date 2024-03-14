@@ -55,7 +55,7 @@ services:
     volumes:
       - ./data/nginx:/etc/nginx/conf.d:ro
       - ./data/letsencrypt:/etc/letsencrypt
-      - ./data/certbot:/var/www/cerbot
+      - ./data/certbot:/var/www/certbot
     networks:
       - api-network
 
@@ -63,7 +63,7 @@ services:
     image: certbot/certbot
     volumes:
       - ./data/letsencrypt:/etc/letsencrypt
-      - ./data/certbot:/var/www/cerbot
+      - ./data/certbot:/var/www/certbot
 
 volumes:
   mongo_data:
