@@ -72,22 +72,12 @@ export const configureFfanalytics = (sanityClient, ffaConfig) => {
   setInterval(() => {
     const q = cache.get('ffa-queue')
 
+    cache.set('ffa-queue', [])
+
     if (q.length > 0 && token) {
       console.log(q.length, ' events to send')
       callFfa(q)
-      cache.set('ffa-queue', [])
       return
-    }
-
-    if (!token && queue.length === 0) {
-      cache.set('ffa-queue', [
-        {
-          name: 'ffaInit',
-          payload: { ffaClientId },
-          date: new Date(),
-          ...data,
-        },
-      ])
     }
   }, 5_000)
 
