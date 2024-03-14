@@ -43,6 +43,7 @@ services:
       - api-network
     volumes:
       - "./data/redis:/bitnami/redis"
-#
-# volumes:
-#   mongo_data:
+
+volumes:
+  mongo_data:
+  redis_data:
