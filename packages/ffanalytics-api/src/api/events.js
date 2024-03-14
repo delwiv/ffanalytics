@@ -8,14 +8,17 @@ events.post('/', async (req, res) => {
     const { client } = req
     const { events } = req.body
 
-    const eventsToCreate = events.map((event) => ({
-      ...event,
-      client,
-    }))
+    const eventsToCreate = events.map((event) => {
+      console.log('url', event.url)
+      return {
+        ...event,
+        client,
+      }
+    })
 
     const result = await Event.create(eventsToCreate)
 
-    return res.json({ events: result, client: client._id })
+    return res.status(200).json({ status: 'ok' })
   } catch (error) {
     return res.json({ error })
   }
