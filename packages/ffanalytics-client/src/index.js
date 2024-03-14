@@ -70,8 +70,11 @@ export const configureFfanalytics = (sanityClient, ffaConfig) => {
   }
 
   setInterval(() => {
-    if (queue.length > 0 && token) {
-      callFfa(queue)
+    const q = cache.get('ffa-queue')
+
+    if (q.length > 0 && token) {
+      console.log(q.lenght, ' events to send')
+      callFfa(q)
       cache.set('ffa-queue', [])
       return
     }
@@ -86,7 +89,7 @@ export const configureFfanalytics = (sanityClient, ffaConfig) => {
         },
       ])
     }
-  }, 2_000)
+  }, 5_000)
 
   const originalFetch = sanityClient.fetch
 
@@ -98,6 +101,7 @@ export const configureFfanalytics = (sanityClient, ffaConfig) => {
       ...data,
     }
     const queue = cache.get('ffa-queue')
+    console.log('push new event, ', queue.length, ' events in queue')
     cache.set('ffa-queue', queue.concat(event))
     return originalFetch.call(sanityClient, query, params)
   }
