@@ -54,15 +54,16 @@ services:
       - "443:443"
     volumes:
       - ./data/nginx:/etc/nginx/conf.d:ro
-      - ./data/certbot/var:/var/www/certbot:ro
-      - ./data/certbot/conf:/etc/nginx/ssl:ro
+      - ./data/letsencrypt:/etc/letsencrypt
+      - ./data/certbot:/var/www/cerbot
     networks:
       - api-network
 
   certbot:
     image: certbot/certbot
     volumes:
-      - ./data/certbot/var:/var/www/certbot:rw
+      - ./data/letsencrypt:/etc/letsencrypt
+      - ./data/certbot:/var/www/cerbot
 
 volumes:
   mongo_data:

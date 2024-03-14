@@ -4,6 +4,6 @@ node_modules
 .git
 data/redis/*
 data/mongo/*
-data/certbot/conf/*
-data/certbot/var/*
+data/certbot/*
+data/letsencrypt/*
 
