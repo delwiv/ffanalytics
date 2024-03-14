@@ -12,6 +12,7 @@ const Event = mongoose.model(
     },
     payload: {},
     ip: String,
+    url: String,
     client: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Client',
