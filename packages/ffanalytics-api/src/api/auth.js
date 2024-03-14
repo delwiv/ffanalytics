@@ -7,10 +7,8 @@ const auth = express.Router()
 // const anonRoutes = ['/status', '/api/auth/access-token']
 
 auth.post('/request-token', async (req, res, next) => {
-  console.log('create session for ', req.client.name)
   const token = crypto.randomUUID()
   const key = `token-${req.client._id}`
-  console.log({ key, token })
   await redis.set(key, token)
 
   res.status(200).json({ token })

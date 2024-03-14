@@ -11,8 +11,7 @@ events.post('/', async (req, res) => {
     const eventsToCreate = events.map((event) => {
       return {
         ...event,
-        url: event.url.toString(),
-        pathname: new String(event.url),
+        url: event.url,
         client,
       }
     })
