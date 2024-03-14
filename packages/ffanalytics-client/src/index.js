@@ -40,7 +40,7 @@ export const configureFfanalytics = (sanityClient, ffaConfig) => {
 
   const callFfa = async (events) => {
     const token = cache.get('ffa-token')
-    console.log('callFfa ', { token })
+    console.log('callFfa with ', events.length, ' events')
     if (!token) {
       return
     }
@@ -73,7 +73,7 @@ export const configureFfanalytics = (sanityClient, ffaConfig) => {
     const q = cache.get('ffa-queue')
 
     if (q.length > 0 && token) {
-      console.log(q.lenght, ' events to send')
+      console.log(q.length, ' events to send')
       callFfa(q)
       cache.set('ffa-queue', [])
       return
