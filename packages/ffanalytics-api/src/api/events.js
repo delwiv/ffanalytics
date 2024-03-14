@@ -13,11 +13,12 @@ events.post('/', async (req, res) => {
       return {
         ...event,
         url: event.url.toString(),
+        pathname: new String(event.url),
         client,
       }
     })
 
-    const result = await Event.create(eventsToCreate)
+    await Event.create(eventsToCreate)
 
     return res.status(200).json({ status: 'ok' })
   } catch (error) {
