@@ -9,7 +9,6 @@ events.post('/', async (req, res) => {
     const { events } = req.body
 
     const eventsToCreate = events.map((event) => {
-      console.log('url', event.url.toString())
       return {
         ...event,
         url: event.url.toString(),

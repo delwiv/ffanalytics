@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
-const Event = mongoose.model(
-  'Event',
+const Event = new mongoose.Schema(
   {
     name: String,
     type: String,
@@ -24,4 +23,4 @@ const Event = mongoose.model(
   }
 )
 
-export default Event
+export default mongoose.model('Event', Event)
