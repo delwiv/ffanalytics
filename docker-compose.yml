@@ -27,8 +27,8 @@ services:
       - MONGODB_PASSWORD=$MONGODB_PASSWORD
       - MONGODB_DATABASE=$MONGODB_DATABASE
       - MONGODB_ROOT_PASSWORD=$MONGODB_PASSWORD
-    # volumes:
-    #   - "~/.ffa-data:/bitnami/mongodb"
+    volumes:
+      - "./data/mongo:/bitnami/mongodb"
     networks:
       - api-network
 
@@ -41,8 +41,8 @@ services:
       - '6379:6379'
     networks:
       - api-network
-#     volumes:
-#       - "~/.ffa-data:/bitnami/redis"
+    volumes:
+      - "./data/redis:/bitnami/redis"
 #
 # volumes:
 #   mongo_data:
