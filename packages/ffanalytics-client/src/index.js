@@ -1,4 +1,4 @@
-const ffanalyticsUrl = 'http://localhost:3060'
+const ffanalyticsUrl = 'https://ffanalytics.wildredbeard.tech'
 
 const getCache = () => {
   if (typeof window === 'undefined') {
