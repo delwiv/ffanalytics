@@ -11,7 +11,6 @@ events.post('/', async (req, res) => {
     const eventsToCreate = events.map((event) => ({
       ...event,
       client,
-      ip: req.ip,
     }))
 
     const result = await Event.create(eventsToCreate)

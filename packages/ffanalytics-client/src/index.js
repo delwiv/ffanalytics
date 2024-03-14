@@ -31,7 +31,7 @@ export const configureFfanalytics = (sanityClient, ffaConfig) => {
     return sanityClient
   }
 
-  const { ffaClientId, ffaPublicKey, userAgent } = ffaConfig
+  const { ffaClientId, ffaPublicKey, ...data } = ffaConfig
 
   if (!ffaClientId || !ffaPublicKey) {
     console.error('Missing ffaClientId or ffaPublicKey')
@@ -65,43 +65,40 @@ export const configureFfanalytics = (sanityClient, ffaConfig) => {
     }
   }
 
-  if (queue.length > 0 && token) {
-    callFfa(queue).then(() => {
-      cache.set('ffa-queue', [])
-    })
-  } else if (!token) {
-    cache.set('ffa-queue', [
-      {
-        name: 'ffaInit',
-        payload: { ffaClientId },
-        userAgent,
-        date: new Date(),
-      },
-    ])
-  }
-
   if (sanityClient.ffaConfigured === true) {
     return sanityClient
   }
 
+  setInterval(() => {
+    if (queue.length > 0 && token) {
+      callFfa(queue)
+      cache.set('ffa-queue', [])
+      return
+    }
+
+    if (!token && queue.length === 0) {
+      cache.set('ffa-queue', [
+        {
+          name: 'ffaInit',
+          payload: { ffaClientId },
+          date: new Date(),
+          ...data,
+        },
+      ])
+    }
+  }, 2_000)
+
   const originalFetch = sanityClient.fetch
 
   sanityClient.fetch = async (query, params, ...config) => {
-    try {
-      const event = {
-        name: 'sanityCall',
-        payload: { params, query, config },
-        userAgent,
-        date: new Date(),
-      }
-      if (cache.get('ffa-token')) {
-        callFfa([event])
-      } else {
-        cache.set('ffa-queue', cache.get('ffa-queue').push(event))
-      }
-    } catch (error) {
-      console.error('ffanalytics send event failed')
+    const event = {
+      name: 'sanityCall',
+      payload: { params, query, config },
+      date: new Date(),
+      ...data,
     }
+    const queue = cache.get('ffa-queue')
+    cache.set('ffa-queue', queue.concat(event))
     return originalFetch.call(sanityClient, query, params)
   }
 
